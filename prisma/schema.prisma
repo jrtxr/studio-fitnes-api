@@ -24,6 +24,8 @@ model GymStudent {
   id Int @id @default(autoincrement())
   email String @unique
   name String
+  phoneNumber String @unique
+  dateOfBirth DateTime
   createdAt DateTime @default(now())
   updateAt DateTime @default(now())
   informationPersonal IformationPersonal?
@@ -33,10 +35,8 @@ model GymStudent {
 
 model IformationPersonal {
   id Int @id @default(autoincrement())
-  dateOfBirth DateTime
   weight Float
   height Float
-  phoneNumber String
   createdAt DateTime @default(now())
   updateAt DateTime @default(now())
   student GymStudent @relation(fields: [studentId], references: [id])
