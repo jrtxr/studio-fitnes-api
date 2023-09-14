@@ -12,10 +12,11 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  email String @unique
   name String
+  email String @unique
   admin Boolean @default(false)
   createdAt DateTime @default(now())
+  updateAt DateTime @default(now())
 
   @@map("user")
 }
@@ -29,6 +30,7 @@ model GymStudent {
   createdAt DateTime @default(now())
   updateAt DateTime @default(now())
   informationPersonal IformationPersonal?
+  modality Modalities?
 
   @@map("gym_student")
 }
@@ -37,10 +39,26 @@ model IformationPersonal {
   id Int @id @default(autoincrement())
   weight Float
   height Float
-  createdAt DateTime @default(now())
-  updateAt DateTime @default(now())
+  gender String
+  anotation String
+  comorbidities String[]
   student GymStudent @relation(fields: [studentId], references: [id])
   studentId Int @unique
+  createdAt DateTime @default(now())
+  updateAt DateTime @default(now())
 
   @@map("personal_information")
+}
+
+model Modalities {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  valuation Float
+  student GymStudent @relation(fields: [studentId], references: [id])
+  studentId Int @unique
+  createdAt DateTime @default(now())
+  updateAt DateTime @default(now())
+
+  @@map("modality")
 }
